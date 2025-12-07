@@ -1,5 +1,6 @@
 const express = require('express');
 const mongoose = require('mongoose');
+const cors = require('cors');
 require('dotenv').config();
 
 const wordRoutes = require('./routes/wordRoutes');
@@ -7,6 +8,10 @@ const wordRoutes = require('./routes/wordRoutes');
 const app = express();
 
 const PORT = process.env.PORT || 3001;
+
+app.use(cors());
+
+app.use(express.json());
 
 app.use('/api/words', wordRoutes);
 

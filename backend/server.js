@@ -2,9 +2,17 @@ const express = require('express');
 const mongoose = require('mongoose');
 require('dotenv').config();
 
+const wordRoutes = require('./routes/wordRoutes');
+
 const app = express();
 
 const PORT = process.env.PORT || 3001;
+
+app.use('/api/words', wordRoutes);
+
+app.get('/api', (req, res) => { 
+    res.json({ message: "Hello someone from anywhere!" })
+});
 
 const dbUrl = process.env.DATABASE_URL;
 
@@ -16,7 +24,7 @@ if (!dbUrl) {
 mongoose.connect(dbUrl)
   .then(() => {
     console.log("Sucesso conectando-se ao MongoDB Atlas.");
-
+    
     app.listen(PORT, () => {
       console.log(`Servidor rodando na porta ${PORT}`);
     });
@@ -25,7 +33,3 @@ mongoose.connect(dbUrl)
     console.error("Não foi possível conectar ao MongoDB Atlas.");
     console.error(err);
   });
-
-app.get('/api', (req,res) => { 
-    res.json({message:"Hello someone from anywhere!"})
-})

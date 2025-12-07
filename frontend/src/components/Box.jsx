@@ -5,7 +5,7 @@ function Box({value, state}) {
     const boxClass = `box ${state || ''}`;
 
     return (
-        <div classname={boxClass}>
+        <div className={boxClass}>
             {value}
         </div>
     );

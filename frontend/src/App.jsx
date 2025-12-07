@@ -13,6 +13,25 @@ function App() {
   //Qual a tentativa atual (de 0 a 5)
   const [turn, setTurn] = useState(0);
 
+  //Palavra secreta
+  const [solution, setSolution] = useState(null);
+
+  useEffect(() => {
+    const fetchWord = async () => {
+      try {
+        const res = await fetch('http://localhost:3001/api/words/word-of-the-day');
+        const json = await res.json();
+
+        console.log("Solução recebida: ", json);
+        setSolution(json.word);
+
+      } catch(error){
+        console.error("Erro ao buscar a palavra secreta: ", error);
+      }
+    };
+    fetchWord();
+  }, []); 
+
   useEffect(() => {
     const handleKeyup = (event) =>{
       const key = event.key;
@@ -49,7 +68,9 @@ function App() {
   return (
     <div className="App">
       <h1>Termo Clone</h1>
-    
+
+      {solution && <p>Solução: {solution}</p>}
+
       <div className="board-container">
         <Board guesses={guesses.map((g,i) =>{
           if (i === turn) return currentGuess;

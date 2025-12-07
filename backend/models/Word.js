@@ -8,6 +8,12 @@ const WordSchema = new mongoose.Schema({
         length: 5,
         uppercase: true,
         trim: true
+    },
+    normalized: {
+        type: String,
+        required: true, 
+        unique: true, 
+        lowercase: true 
     }
 });
 

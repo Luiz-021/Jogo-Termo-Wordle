@@ -1,12 +1,15 @@
 import React from 'react';
 import Row from './Row';
 
-function Board({ guesses}){
+function Board({ guesses, currentGuess, turn}){
     return(
         <div className = "board">
-            {[0,1,2,3,4,5].map((i) => (
-                <Row key = {i} guess = {guesses[i]} />
-                ))}
+            {guesses.map((g, i) => {
+                if (turn === i) {
+                return <Row key={i} currentGuess={currentGuess} />;
+                }
+                return <Row key={i} guess={g} />;
+            })}
         </div>
     );
 }

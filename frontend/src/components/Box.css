@@ -12,6 +12,20 @@
   background-color: white; 
 }
 
-.box.correct { background-color: #6aaa64; color: white; border-color: #6aaa64; }
-.box.partial { background-color: #c9b458; color: white; border-color: #c9b458; }
-.box.wrong { background-color: #787c7e; color: white; border-color: #787c7e; }
+.box.grey {
+  background-color: #787c7e;
+  color: white;
+  border-color: #787c7e;
+}
+
+.box.green {
+  background-color: #6aaa64;
+  color: white;
+  border-color: #6aaa64;
+}
+
+.box.yellow {
+  background-color: #c9b458;
+  color: white;
+  border-color: #c9b458;
+}

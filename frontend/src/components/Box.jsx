@@ -2,7 +2,8 @@ import React from 'react';
 import './Box.css'
 
 function Box({value, color}) {
-    const boxClass = `box ${color || ''}`;
+    const isFilled = !color && value ? 'filled' : '';
+    const boxClass = `box ${color || ''} ${isFilled}`;
 
     return (
         <div className={boxClass}>

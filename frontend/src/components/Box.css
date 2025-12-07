@@ -1,31 +1,37 @@
 .box {
-  width: 50px;
-  height: 50px;
-  border: 2px solid #d3d6da;
+  width: 60px; 
+  height: 60px;
+  border: 2px solid var(--color-grey);
   display: flex;
   justify-content: center;
   align-items: center;
   font-size: 2rem;
   font-weight: bold;
   text-transform: uppercase;
-  margin: 2px;
-  background-color: white; 
+  margin: 3px;
+  background-color: transparent; 
+  color: var(--color-tone-1);
+  transition: all 0.2s ease-in-out;
+}
+
+.box.filled {
+  border-color: var(--color-tone-2);
+  box-shadow: 0 0 5px rgba(255, 255, 255, 0.1);
 }
 
 .box.grey {
-  background-color: #787c7e;
-  color: white;
-  border-color: #787c7e;
+  background-color: var(--color-grey);
+  border-color: var(--color-grey);
 }
 
 .box.green {
-  background-color: #6aaa64;
-  color: white;
-  border-color: #6aaa64;
+  background-color: var(--color-green);
+  border-color: var(--color-green);
+  box-shadow: 0 0 10px var(--color-green);
 }
 
 .box.yellow {
-  background-color: #c9b458;
-  color: white;
-  border-color: #c9b458;
+  background-color: var(--color-yellow);
+  border-color: var(--color-yellow);
+  box-shadow: 0 0 10px var(--color-yellow); 
 }

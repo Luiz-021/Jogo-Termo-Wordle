@@ -1,0 +1,60 @@
+.modal {
+  background: rgba(0, 0, 0, 0.7); /* Fundo escuro semi-transparente */
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 10; /* Garante que fique em cima de tudo */
+  backdrop-filter: blur(3px); /* Efeito de desfoque no fundo */
+}
+
+.modal-content {
+  background-color: var(--bg-primary); /* Preto do nosso tema */
+  border: 2px solid var(--color-red-shadow); /* Borda vermelha */
+  padding: 40px;
+  border-radius: 15px; /* Bordas arredondadas que você pediu */
+  width: 100%;
+  max-width: 400px;
+  text-align: center;
+  color: var(--color-tone-1);
+  box-shadow: 0 0 20px var(--color-red-shadow); /* Brilho vermelho */
+  animation: slideIn 0.3s ease-out forwards;
+}
+
+.modal .solution {
+  color: var(--color-red-shadow); /* Destaque na solução */
+  font-weight: bold;
+  font-size: 2rem;
+  text-transform: uppercase;
+  margin: 20px 0;
+  letter-spacing: 2px;
+}
+
+.play-again-btn {
+  background-color: var(--color-green);
+  color: white;
+  border: none;
+  padding: 15px 30px;
+  font-size: 1.2rem;
+  border-radius: 50px; /* Botão bem redondo */
+  cursor: pointer;
+  margin-top: 20px;
+  font-weight: bold;
+  transition: all 0.3s;
+  text-transform: uppercase;
+}
+
+.play-again-btn:hover {
+  background-color: #45a049;
+  transform: scale(1.05);
+  box-shadow: 0 0 15px var(--color-green);
+}
+
+@keyframes slideIn {
+  from { transform: translateY(-30px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}

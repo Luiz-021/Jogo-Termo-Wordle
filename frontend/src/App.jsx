@@ -2,48 +2,65 @@ import { useEffect, useState } from 'react';
 import useWordle from './hooks/useWordle'; 
 import './App.css';
 import Board from './components/Board';
+import Modal from './components/Modal';
 
 function App() {
   const [solution, setSolution] = useState(null);
   
-  // Utilizando o Hook useWordle para gerenciar o estado do jogo.
-  const { currentGuess, handleKeyup, guesses, isCorrect, turn } = useWordle(solution);
+  const { currentGuess, handleKeyup, guesses, isCorrect, turn, resetGame } = useWordle(solution);
+  const [showModal, setShowModal] = useState(false);
 
-  useEffect(() => {
-    const fetchWord = async () => {
+  const fetchWord = async () => {
       const res = await fetch('http://localhost:3001/api/words/');
       const json = await res.json();
       setSolution(json.word);
       console.log("Solução do jogo:", json.word);
     };
-    fetchWord();
-  }, [setSolution]);
 
   useEffect(() => {
-    window.addEventListener('keyup', handleKeyup);
+    fetchWord();
+  }, []);
 
-    // Remover o listener caso usuário acertou ou acabaram as chances
+  useEffect(() => {
     if (isCorrect || turn > 5) {
-      window.removeEventListener('keyup', handleKeyup);
+      setTimeout(() => setShowModal(true), 2000);
     }
+  }, [isCorrect, turn]);
+
+  useEffect(() => {
+    if (isCorrect || turn > 5) {
+        return; 
+    }
+
+    window.addEventListener('keyup', handleKeyup);
 
     return () => window.removeEventListener('keyup', handleKeyup);
   }, [handleKeyup, isCorrect, turn]);
+
+  const handleRestart = () => {
+    setShowModal(false);
+    resetGame();
+    setSolution(null);
+    fetchWord();
+  };
 
   return (
     <div className="App">
       <h1>Termo Clone</h1>
       
-      {isCorrect && <h3>Você Venceu!</h3>}
-      
       {solution && (
         <div className="board-container">
-          <Board 
-            currentGuess={currentGuess} 
-            guesses={guesses} 
-            turn={turn} 
-          />
+          <Board currentGuess={currentGuess} guesses={guesses} turn={turn} />
         </div>
+      )}
+
+      {showModal && (
+        <Modal 
+          isCorrect={isCorrect} 
+          turn={turn} 
+          solution={solution} 
+          resetGame={handleRestart} 
+        />
       )}
     </div>
   );

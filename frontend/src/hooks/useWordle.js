@@ -69,6 +69,14 @@ const useWordle = (solution) => {
         }
     }
 
+    const resetGame = () => {
+        setTurn(0);
+        setCurrentGuess('');
+        setGuesses([...Array(6)]);
+        setHistory([]);
+        setIsCorrect(false);
+    };
+
     const handleKeyup = async ({ key }) => {
         if (key === 'Enter') {
             if (turn > 5) return;
@@ -98,7 +106,7 @@ const useWordle = (solution) => {
         }
     };
 
-    return { turn, currentGuess, guesses, isCorrect, handleKeyup };
+    return { turn, currentGuess, guesses, isCorrect, handleKeyup, resetGame };
 };
 
 export default useWordle;

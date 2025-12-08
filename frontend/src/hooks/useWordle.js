@@ -13,18 +13,13 @@ const useWordle = (solution) => {
             return { key: l, color: 'grey' };
         });
 
-        // Passo 1: Encontrar letras verdes
         formattedGuess.forEach((l, i) => {
             if (solutionArray[i] === l.key) {
                 l.color = 'green';
-                // CORREÇÃO LÓGICA AQUI:
-                // Antes estava: solutionArray = null; (Apagava o array todo)
-                // Correto: Anula só a posição atual para não contar duplicado
                 solutionArray[i] = null; 
             }
         });
 
-        // Passo 2: Encontrar letras amarelas
         formattedGuess.forEach((l, i) => {
             if (l.color !== 'green' && solutionArray.includes(l.key)) {
                 formattedGuess[i].color = 'yellow';
@@ -42,9 +37,6 @@ const useWordle = (solution) => {
 
         setGuesses((prevGuesses) => {
             let newGuesses = [...prevGuesses];
-            // CORREÇÃO DE SINTAXE AQUI:
-            // Antes estava: newGuesses(turn) = ... (Parênteses)
-            // Correto: Usa colchetes para acessar o índice do array
             newGuesses[turn] = formattedGuess; 
             return newGuesses;
         });
@@ -57,11 +49,38 @@ const useWordle = (solution) => {
         setCurrentGuess('');
     };
 
-    const handleKeyup = ({ key }) => {
+    const validateWord = async (word) =>{
+        try{
+            const res = await fetch('http://localhost:3001/api/words/validate', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ word: word })
+            });
+
+            if (!res.ok) {
+                throw new Error('Erro na resposta do servidor');
+            }
+            
+            const data = await res.json();
+            return data.isValid;
+        }   catch(error){
+            console.error("Erro ao validar:", error);
+            return false;
+        }
+    }
+
+    const handleKeyup = async ({ key }) => {
         if (key === 'Enter') {
             if (turn > 5) return;
             if (history.includes(currentGuess)) return;
             if (currentGuess.length !== 5) return;
+
+            const isValid = await validateWord(currentGuess);
+
+            if(!isValid){
+                console.log("Palavra inválida");
+                return;
+            }
 
             const formatted = formatGuess();
             addNewGuess(formatted);

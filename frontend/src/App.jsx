@@ -11,7 +11,7 @@ function App() {
 
   useEffect(() => {
     const fetchWord = async () => {
-      const res = await fetch('http://localhost:3001/api/words/word-of-the-day');
+      const res = await fetch('http://localhost:3001/api/words/');
       const json = await res.json();
       setSolution(json.word);
       console.log("Solução do jogo:", json.word);

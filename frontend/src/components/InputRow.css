@@ -1,0 +1,34 @@
+.input-row {
+  display: flex;
+  justify-content: center;
+  gap: 15px; /* Espaço entre as letras */
+  margin-bottom: 40px; /* Distância grande do tabuleiro */
+  margin-top: 20px;
+  height: 60px;
+}
+
+.input-slot {
+  width: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end; /* Alinha tudo por baixo */
+}
+
+.letter {
+  font-size: 3.5rem; /* Letra bem grande */
+  font-weight: bold;
+  font-family: 'Courier New', monospace; /* Fonte monoespaçada para o underline ficar bonito */
+  text-transform: uppercase;
+  transition: all 0.2s ease;
+}
+
+.letter.filled {
+  color: var(--color-tone-1); /* Branco */
+  text-shadow: 0 0 10px rgba(255, 255, 255, 0.5); /* Brilho na letra ativa */
+  transform: translateY(-5px); /* Leve pulinho para cima */
+}
+
+.letter.empty {
+  color: var(--color-grey); /* Cinza para o rascunho vazio */
+  font-weight: normal;
+}

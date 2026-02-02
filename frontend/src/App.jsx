@@ -3,6 +3,7 @@ import useWordle from './hooks/useWordle';
 import './App.css';
 import Board from './components/Board';
 import Modal from './components/Modal';
+import InputRow from './components/InputRow';
 
 function App() {
   const [solution, setSolution] = useState(null);
@@ -47,10 +48,12 @@ function App() {
   return (
     <div className="App">
       <h1>Termo Clone</h1>
+
+      <InputRow currentGuess={currentGuess} />
       
       {solution && (
         <div className="board-container">
-          <Board currentGuess={currentGuess} guesses={guesses} turn={turn} />
+          <Board guesses={guesses} turn={turn} />
         </div>
       )}
 
